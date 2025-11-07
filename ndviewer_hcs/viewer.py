@@ -1219,8 +1219,8 @@ class TiffViewerWidget(QWidget):
                 wavelength = extract_wavelength(name)
                 luts[i] = self._get_channel_colormap(wavelength, i)
             
-            bio_img.close()  # ✓ CRITICAL: Close after getting metadata
-            
+            del bio_img  # CRITICAL: Close after getting metadata
+        
             # Build lazy dask array structure using bioio: (time, z_level, channel, y, x)
             def load_ome_slice_bioio(filepath, c_idx, z_idx, t_idx):
                 def _load():
